@@ -465,6 +465,10 @@ abstract class LogStream {
 						switch( $myfilter[FILTER_TYPE] )
 						{
 							case FILTER_TYPE_STRING:
+								// Do not FILTER for REGEX Values here!
+								if ( $myfilter[FILTER_MODE] & FILTER_MODE_SEARCHREGEX )
+									continue; 
+
 								// Only filter if value is non zero
 								if ( strlen($propertyvalue) > 0 && strlen($myfilter[FILTER_VALUE]) > 0 )
 								{
@@ -1069,7 +1073,7 @@ abstract class LogStream {
 									break;
 								}
 							}
-							if ( isset($fields[$tmpKeyName]) && isset($fields[$tmpKeyName]['SearchField']) )
+							if ( isset($tmpKeyName) && isset($fields[$tmpKeyName]) && isset($fields[$tmpKeyName]['SearchField']) )
 							{
 								$tmpFilterType = $fields[$tmpKeyName]['FieldType'];
 								
@@ -1107,7 +1111,7 @@ abstract class LogStream {
 					}
 
 					// Add to detected filter array
-					if ( $this->_arrFilterProperties == null || !in_array($tmpKeyName, $this->_arrFilterProperties) )
+					if ( isset($tmpKeyName) && ($this->_arrFilterProperties == null || !in_array($tmpKeyName, $this->_arrFilterProperties)) )
 						$this->_arrFilterProperties[] = $tmpKeyName; 
 
 					// Ignore if unknown filter!

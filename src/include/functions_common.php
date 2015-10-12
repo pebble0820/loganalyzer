@@ -65,7 +65,7 @@ $LANG_EN = "en";	// Used for fallback
 $LANG = "en";		// Default language
 
 // Default Template vars
-$content['BUILDNUMBER'] = "4.1.2";
+$content['BUILDNUMBER'] = "4.1.3";
 $content['UPDATEURL'] = "http://loganalyzer.adiscon.com/files/version.txt";
 $content['TITLE'] = "Adiscon LogAnalyzer :: Release " . $content['BUILDNUMBER'];	// Default page title 
 $content['BASEPATH'] = $gl_root_path;
@@ -1528,6 +1528,18 @@ function AddContextLinks(&$sourceTxt)
 	$sourceTxt = preg_replace_callback( '/\.([\w\d\_\-]+)\.(' . $szTLDDomains . ')([^a-zA-Z0-9\.])/i', "InsertLookupLinkDomain", $sourceTxt );
 	$sourceTxt = preg_replace_callback( '/(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/i', "InsertLookupLinkIP", $sourceTxt );
 }
+
+/*
+*	AddContextLinks
+*/
+function AddWindowLoadFocus($szFieldID)
+{
+	global $content;
+
+	// Add Javascript to Focus a specific element
+	$content['EXTRA_JAVASCRIPT'] .= "<script>window.onload = function(){ document.getElementById('" . $szFieldID . "').focus(); };</script>"; 
+}
+
 
 /*
 *	Helper to create a Lookup Link!

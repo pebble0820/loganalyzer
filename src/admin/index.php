@@ -94,9 +94,22 @@ if ( isset($_GET['op']) && isset($_GET['value']) )
 	{
 		$iNewVal = intval($_GET['value']);
 		if ( $iNewVal == 1 )
+		{
+			// Set UserOption 
 			$USERCFG['UserOverwriteOptions'] = 1;
+
+			// Focus the enable user button
+			AddWindowLoadFocus("buttonenableuseropt"); 
+		}
 		else
+		{
+			// Set UserOption 
 			$USERCFG['UserOverwriteOptions'] = 0;
+
+			// Focus the disable user button
+			AddWindowLoadFocus("buttondisableuseropt"); 
+		}
+
 
 		// Enable User Options!
 		WriteConfigValue( "UserOverwriteOptions", false, $content['SESSION_USERID'] );
